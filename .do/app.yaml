@@ -1,0 +1,16 @@
+name: my-flask-app
+region: nyc
+services:
+  - name: web
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: ajot/my-flask-app
+    build_command: pip install -r requirements.txt
+    run_command: gunicorn --worker-tmp-dir /dev/shm app:app
+    instance_size_slug: basic-xxs
+    source_dir: /
+    envs:
+      - key: FLASK_ENV
+        scope: RUN_TIME
+        value: production 
